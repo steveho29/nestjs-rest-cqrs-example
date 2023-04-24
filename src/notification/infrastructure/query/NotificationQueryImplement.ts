@@ -27,6 +27,7 @@ export class NotificationQueryImplement implements NotificationQuery {
             ? this.entityIdTransformer.to(options.accountId)
             : undefined,
         },
+        order: {createdAt: 'DESC'}
       })
       .then((entities) => ({
         notifications: entities.map((entity) => ({

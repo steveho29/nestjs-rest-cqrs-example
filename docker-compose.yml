@@ -5,7 +5,7 @@ services:
     image: nginx:alpine
     restart: always
     ports:
-      - 80:80
+      - 9090:80
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     command: [nginx-debug, '-g', 'daemon off;']
@@ -17,12 +17,12 @@ services:
     restart: always
     environment:
       - AWS_REGION=ap-northeast-2
-      - AWS_ENDPOINT=http://localstack:4566
+      - AWS_ENDPOINT=http://nestjs-rest-cqrs-example-localstack:4566
       - AWS_ACCESS_KEY_ID=AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY=AWS_SECRET_ACCESS_KEY
-      - AWS_SQS_QUEUE_URL=http://localhost:4566/000000000000/example
+      - AWS_SQS_QUEUE_URL=http://nestjs-rest-cqrs-example-localstack:4566/000000000000/example
       - DATABASE_LOGGING=true
-      - DATABASE_HOST=database
+      - DATABASE_HOST=nestjs-rest-cqrs-example-mysql
       - DATABASE_PORT=3306
       - DATABASE_NAME=nest
       - DATABASE_USER=root
@@ -36,6 +36,7 @@ services:
 
   database:
     image: mysql
+    container_name: nestjs-rest-cqrs-example-mysql
     restart: always
     ports:
       - 3306:3306
@@ -50,6 +51,7 @@ services:
 
   localstack:
     image: localstack/localstack
+    container_name: nestjs-rest-cqrs-example-localstack
     ports:
       - 4566:4566
     environment:

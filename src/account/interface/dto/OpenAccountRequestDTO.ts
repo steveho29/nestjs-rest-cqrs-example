@@ -19,8 +19,8 @@ export class OpenAccountRequestDTO {
   readonly email: string;
 
   @IsAlphanumeric()
-  @MinLength(8)
+  @MinLength(3)
   @MaxLength(20)
-  @ApiProperty({ minLength: 8, maxLength: 20, example: 'password' })
+  @ApiProperty({ minLength: 3, maxLength: 20, example: 'password' })
   readonly password: string;
 }
